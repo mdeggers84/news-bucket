@@ -2,3 +2,4 @@ node_modules/
 .DS_Store
 misc.txt
 test.html
+package-lock.json

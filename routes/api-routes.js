@@ -20,4 +20,12 @@ module.exports = function (app) {
       res.json(result);
     });
   });
+
+  app.get('/api/news', function (req, res) {
+    
+  });
+
+  app.get('/api/news/:id', function (req, res) {
+
+  });
 };
