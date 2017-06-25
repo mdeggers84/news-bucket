@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var newsSchema = new Schema({
   title: {
     type: String,
-    require: true
+    require: true,
+    unique: true
   },
   body: String,
   link: {

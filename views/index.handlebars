@@ -1,7 +1,7 @@
 <div id="news">
   {{#each doc}}
   <ul>
-    <li>{{this.title}}</li>
+    <li data-id="{{this._id}}">{{this.title}}</li>
     <li><a href="{{this.link}}">{{this.link}}</a></li>
   </ul>
   {{/each}}
