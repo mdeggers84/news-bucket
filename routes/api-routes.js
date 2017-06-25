@@ -38,6 +38,14 @@ module.exports = function (app) {
   });
 
   app.get('/api/news/:id', function (req, res) {
-
+    News.findOne({ _id: req.params.id })
+    .populate('Comments')
+    .exec(function (error, doc) {
+      if (error) {
+        console.log(error);
+      } else {
+        res.json(doc);
+      }
+    });
   });
 };
