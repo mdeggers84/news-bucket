@@ -48,4 +48,23 @@ module.exports = function (app) {
       }
     });
   });
+
+  app.post('/api/news/:id', function (req, res) {
+    var newComment = new Comments(req.body);
+
+    newComment.save(function (error, doc) {
+      if (error) {
+        console.log(error);
+      } else {
+        News.findOneAndUpdate({ _id: req.params.id }, { comments: doc._id })
+        .exec(function (err, doc) {
+          if (err) {
+            console.log(err);
+          } else {
+            res.send(doc);
+          }
+        });
+      }
+    });
+  });
 };

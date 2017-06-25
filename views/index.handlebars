@@ -1,9 +1,10 @@
 <div id="news">
   {{#each doc}}
   <ul>
-    <li data-id="{{this._id}}">{{this.title}}</li>
+    <li>{{this.title}}</li>
     <li><a href="{{this.link}}">{{this.link}}</a></li>
   </ul>
+  <button data-id="{{this._id}}" class="save-btn">Save</button>
   {{/each}}
 </div>
 <div id="comments"></div>
