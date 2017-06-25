@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var commentSchema = new Schema({
-  title: String,
-  author: String,
-  body: String,
-  url: String
+  title: {
+    type: String
+  },
+  body: String
 });
 
-var Comments = mongoose.model('News', commentSchema);
+var Comments = mongoose.model('Comments', commentSchema);
 
 module.exports = Comments;
