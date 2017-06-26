@@ -17,6 +17,14 @@ module.exports = function (app) {
   });
 
   app.get('/saved', function (req, res) {
-    res.render('saved', { test: 'saved' });
+    News.findOne({})
+    .populate('Comments')
+    .exec(function (error, doc) {
+      if (error) {
+        console.log(error);
+      } else {
+        res.json(doc);
+      }
+    });
   });
 };
