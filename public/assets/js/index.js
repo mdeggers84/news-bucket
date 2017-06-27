@@ -5,4 +5,9 @@ $(document).ready(function () {
 
     $.post('/api/news/' + newsID);
   });
+
+  $('#scrape-btn').on('click', function () {
+    $.get('/api/scrape');
+    window.location.replace = '/';
+  });
 });

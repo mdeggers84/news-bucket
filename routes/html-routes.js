@@ -3,7 +3,7 @@ var Comments = require('../models/Comments');
 
 module.exports = function (app) {
   app.get('/', function (req, res) {
-    News.find({}, function (error, doc) {
+    News.find().sort({ _id: -1 }).exec(function (error, doc) {
       if (error) {
         console.log(error);
       } else {

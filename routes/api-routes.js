@@ -4,7 +4,7 @@ var News = require('../models/News');
 var Comments = require('../models/Comments');
 
 module.exports = function (app) {
-  app.get('/scrape', function (req, res) {
+  app.get('/api/scrape', function (req, res) {
     request('https://www.polygon.com/', function (error, response, html) {
       var $ = cheerio.load(html);
       var result = {};
