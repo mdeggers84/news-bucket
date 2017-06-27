@@ -7,8 +7,7 @@
     <li>{{this.title}}</li>
     <li><a href="{{this.link}}">{{this.link}}</a></li>
   </ul>
-  <button data-id="{{this._id}}" class="comment-btn">Comment</button>
-  <button data-id="{{this._id}}" class="delete-btn">X</button>{{/each}}
+  <!-- Button trigger modal -->
+  <button type="button" class="btn comment-btn" data-toggle="modal" data-target="#commentModal" data-id="{{this._id}}">Comment</button>
+  <button class="delete-btn" data-id="{{this._id}}">X</button>{{/each}}
 </div>
-
-<script src="assets/js/saved.js"></script>
