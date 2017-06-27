@@ -1,0 +1,14 @@
+<div id="navbar">
+  <a href="/"><button id="home-btn" class="btn btn-primary">News Bucket</button></a>
+</div>
+<div id="news">
+  {{#each doc}}
+  <ul>
+    <li>{{this.title}}</li>
+    <li><a href="{{this.link}}">{{this.link}}</a></li>
+  </ul>
+  <button data-id="{{this._id}}" class="comment-btn">Comment</button>
+  <button data-id="{{this._id}}" class="delete-btn">X</button>{{/each}}
+</div>
+
+<script src="assets/js/saved.js"></script>

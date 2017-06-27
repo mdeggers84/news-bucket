@@ -1,5 +1,6 @@
 <div id="navbar">
   <button id="scrape-btn" class="btn btn-submit">Scrape</button>
+  <a href="/saved"><button id="saved-btn" class="btn btn-primary">Saved Articles</button></a>
 </div>
 <div id="news">
   {{#each doc}}
@@ -9,6 +10,5 @@
   </ul>
   <button data-id="{{this._id}}" class="save-btn">Save</button> {{/each}}
 </div>
-<div id="comments"></div>
 
 <script src="assets/js/index.js"></script>
