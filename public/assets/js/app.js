@@ -23,8 +23,9 @@ $(document).ready(function () {
   });
 
   $('#scrape-btn').on('click', function () {
-    $.get('/api/scrape').done(function () {
-      window.location.replace = '/';
+    $.get('/api/scrape', function (data) {
+      console.log('Scrape Complete', data);
+      window.location.replace('/');
     });
   });
 });

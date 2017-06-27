@@ -1,9 +1,8 @@
 <div id="navbar">
-  <button id="scrape-btn" class="btn btn-submit">Scrape</button>
   <a href="/saved"><button id="saved-btn" class="btn btn-primary">Saved Articles</button></a>
 </div>
 <div id="news">
-  {{#each doc}}
+  {{#each docArr}}
   <ul>
     <li>{{this.title}}</li>
     <li><a href="{{this.link}}">{{this.link}}</a></li>

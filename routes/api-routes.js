@@ -5,28 +5,28 @@ var SavedNews = require('../models/SavedNews');
 var Comments = require('../models/Comments');
 
 module.exports = function (app) {
-  app.get('/api/scrape', function (req, res) {
-    request('https://www.polygon.com/', function (error, response, html) {
-      var $ = cheerio.load(html);
-      var result = {};
+  // app.get('/api/scrape', function (req, res) {
+  //   request('https://www.polygon.com/', function (error, response, html) {
+  //     var $ = cheerio.load(html);
+  //     var result = {};
 
-      $('div.c-compact-river__entry ').each(function (i, element) {
-        result.title = $(this).find('h2').find('a').text();
-        result.link = $(this).find('h2').find('a').attr('href');
+  //     $('div.c-compact-river__entry ').each(function (i, element) {
+  //       result.title = $(this).find('h2').find('a').text();
+  //       result.link = $(this).find('h2').find('a').attr('href');
 
-        var entry = new News(result);
+  //       var entry = new News(result);
 
-        entry.save(function (err, doc) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(doc);
-          }
-        });
-      });
-    });
-    res.send('Scrape Complete!');
-  });
+  //       entry.save(function (err, doc) {
+  //         if (err) {
+  //           console.log(err);
+  //         } else {
+  //           console.log(doc);
+  //         }
+  //       });
+  //     });
+  //   });
+  //   res.send('Scrape Complete!');
+  // });
 
   app.get('/api/news', function (req, res) {
     News.find({}, function (error, doc) {
