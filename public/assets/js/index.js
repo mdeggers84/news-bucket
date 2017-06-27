@@ -3,11 +3,15 @@ $(document).ready(function () {
     event.preventDefault();
     var newsID = $(this).data('id');
 
-    $.post('/api/news/' + newsID);
+    $.get('/api/news/' + newsID).done(function (data) {
+      console.log('Saved Article', data);
+      $.post('/api/saved/' + newsID, data);
+    });
   });
 
   $('#scrape-btn').on('click', function () {
-    $.get('/api/scrape');
-    window.location.replace = '/';
+    $.get('/api/scrape').done(function () {
+      window.location.replace = '/';
+    });
   });
 });

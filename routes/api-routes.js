@@ -1,6 +1,7 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var News = require('../models/News');
+var SavedNews = require('../models/SavedNews');
 var Comments = require('../models/Comments');
 
 module.exports = function (app) {
@@ -38,9 +39,7 @@ module.exports = function (app) {
   });
 
   app.get('/api/news/:id', function (req, res) {
-    News.findOne({ _id: req.params.id })
-    .populate('Comments')
-    .exec(function (error, doc) {
+    News.findOne({ _id: req.params.id }, function (error, doc) {
       if (error) {
         console.log(error);
       } else {
@@ -49,14 +48,36 @@ module.exports = function (app) {
     });
   });
 
-  app.post('/api/news/:id', function (req, res) {
+  app.get('/api/saved', function (req, res) {
+    SavedNews.find({}, function (error, doc) {
+      if (error) {
+        console.log(error);
+      } else {
+        res.json(doc);
+      }
+    });
+  });
+
+  app.post('/api/saved/:id', function (req, res) {
+    var newSavedNews = new SavedNews(req.body);
+
+    newSavedNews.save(function (error, doc) {
+      if (error) {
+        console.log(error);
+      } else {
+        res.json(doc);
+      }
+    });
+  });
+
+  app.post('/api/comments/:id', function (req, res) {
     var newComment = new Comments(req.body);
 
     newComment.save(function (error, doc) {
       if (error) {
         console.log(error);
       } else {
-        News.findOneAndUpdate({ _id: req.params.id }, { comments: doc._id })
+        SavedNews.findOneAndUpdate({ _id: req.params.id }, { comments: doc._id })
         .exec(function (err, doc) {
           if (err) {
             console.log(err);
