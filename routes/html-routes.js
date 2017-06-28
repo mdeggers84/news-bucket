@@ -2,7 +2,6 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 var News = require('../models/News');
-var SavedNews = require('../models/SavedNews');
 var Comments = require('../models/Comments');
 
 module.exports = function (app) {
@@ -40,7 +39,7 @@ module.exports = function (app) {
   });
 
   app.get('/saved', function (req, res) {
-    SavedNews.find({}).sort({ _id: 1 }).exec(function (error, doc) {
+    News.find({}).sort({ _id: 1 }).exec(function (error, doc) {
       if (error) {
         console.log(error);
       } else {

@@ -10,7 +10,12 @@ var newsSchema = new Schema({
   body: String,
   link: {
     type: String,
-    required: true
+    required: true,
+    unique: true
+  },
+  comments: {
+    type: Schema.Types.ObjectId,
+    ref: 'Comments'
   }
 });
 

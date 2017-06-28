@@ -14,22 +14,16 @@ $(document).ready(function () {
       .find('a')
       .text();
 
-    $.post('/api/saved/', doc);
+    $.post('/api/news/', doc);
   });
 
   $(document).on('click', '.comment-btn', function (event) {
     event.preventDefault();
     var newsID = $(this).data('id');
 
-    $.get('/api/saved/' + newsID).done(function (data) {
-
+    $.get('/api/news/' + newsID).done(function (data) {
+      console.log(data);
+      
     });
   });
-
-  // $('#scrape-btn').on('click', function () {
-  //   $.get('/api/scrape', function (data) {
-  //     console.log('Scrape Complete', data);
-  //     window.location.replace('/');
-  //   });
-  // });
 });

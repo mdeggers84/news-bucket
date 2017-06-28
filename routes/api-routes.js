@@ -1,7 +1,6 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var News = require('../models/News');
-var SavedNews = require('../models/SavedNews');
 var Comments = require('../models/Comments');
 
 module.exports = function (app) {
@@ -48,20 +47,10 @@ module.exports = function (app) {
     });
   });
 
-  app.get('/api/saved', function (req, res) {
-    SavedNews.find({}, function (error, doc) {
-      if (error) {
-        console.log(error);
-      } else {
-        res.json(doc);
-      }
-    });
-  });
+  app.post('/api/news/', function (req, res) {
+    var newNews = new News(req.body);
 
-  app.post('/api/saved/', function (req, res) {
-    var newSavedNews = new SavedNews(req.body);
-
-    newSavedNews.save(function (error, doc) {
+    newNews.save(function (error, doc) {
       if (error) {
         console.log(error);
       } else {
@@ -77,7 +66,7 @@ module.exports = function (app) {
       if (error) {
         console.log(error);
       } else {
-        SavedNews.findOneAndUpdate({ _id: req.params.id }, { comments: doc._id })
+        News.findOneAndUpdate({ _id: req.params.id }, { comments: doc._id })
         .exec(function (err, doc) {
           if (err) {
             console.log(err);
