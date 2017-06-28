@@ -11,3 +11,26 @@
   <button type="button" class="btn comment-btn" data-toggle="modal" data-target="#commentModal" data-id="{{this._id}}">Comment</button>
   <button class="delete-btn" data-id="{{this._id}}">X</button>{{/each}}
 </div>
+<!-- Modal -->
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="comments">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="commentTitle"></h4>
+      </div>
+      <div class="modal-body">
+        <div id="prev-comments">
+          {{!--previous comments inserted here--}}
+        </div>
+        <div>
+          <textarea id="new-comment" rows="5"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="save-comment" type="button" class="btn btn-primary" data-id="">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

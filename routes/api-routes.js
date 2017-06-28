@@ -38,13 +38,27 @@ module.exports = function (app) {
   });
 
   app.get('/api/news/:id', function (req, res) {
-    News.findOne({ _id: req.params.id }, function (error, doc) {
-      if (error) {
-        console.log(error);
-      } else {
-        res.json(doc);
-      }
-    });
+    News.findOne({ _id: req.params.id })
+      .populate('comments')
+      .exec(function (error, doc) {
+        if (error) {
+          console.log(error);
+        } else {
+          res.json(doc);
+        }
+      });
+  });
+
+  app.get('/api/comments', function (req, res) {
+    News.find({})
+      .populate('comments')
+      .exec(function (error, doc) {
+        if (error) {
+          console.log(error);
+        } else {
+          res.json(doc);
+        }
+      });
   });
 
   app.post('/api/news/', function (req, res) {
