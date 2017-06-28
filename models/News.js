@@ -13,10 +13,10 @@ var newsSchema = new Schema({
     required: true,
     unique: true
   },
-  comments: {
+  comments: [{
     type: Schema.Types.ObjectId,
     ref: 'Comments'
-  }
+  }]
 });
 
 var News = mongoose.model('News', newsSchema);

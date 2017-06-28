@@ -80,12 +80,12 @@ module.exports = function (app) {
       if (error) {
         console.log(error);
       } else {
-        News.findOneAndUpdate({ _id: req.params.id }, { comments: doc._id })
-        .exec(function (err, doc) {
+        News.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: doc._id } }, { new: true })
+        .exec(function (err, newdoc) {
           if (err) {
             console.log(err);
           } else {
-            res.send(doc);
+            res.send(newdoc);
           }
         });
       }

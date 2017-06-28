@@ -5,7 +5,10 @@ var commentSchema = new Schema({
   title: {
     type: String
   },
-  body: String
+  body: {
+    type: String,
+    trim: true
+  }
 });
 
 var Comments = mongoose.model('Comments', commentSchema);

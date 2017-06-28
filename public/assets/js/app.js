@@ -21,20 +21,24 @@ $(document).ready(function () {
     event.preventDefault();
     var newsID = $(this).data('id');
     $('#prev-comments').empty();
+    $('#new-comment').val('');
 
     $.get('/api/news/' + newsID).done(function (data) {
-      var html = '';
+      console.log(data);
 
       if (typeof data.comments !== 'undefined') {
-        console.log(data.comments.body);
-        html = '<div>' +
-        '<p>' + data.comments.body + '</p>' +
+        var commentsArr = data.comments;
+        var html = '';
+        for (var i = 0; i < commentsArr.length; i += 1) {
+          html = '<div>' +
+        '<p>' + commentsArr[i].body + '</p>' +
         '</div>';
+          $('#prev-comments').append(html);
+        }
       }
 
       $('#commentTitle').text(data.title);
       $('#save-comment').attr('data-id', newsID);
-      $('#prev-comments').html(html);
     });
   });
 
