@@ -17,9 +17,15 @@ $(document).ready(function () {
     $.post('/api/news/', doc);
   });
 
+  $(document).on('click', '.delete-btn', function (event) {
+
+  });
+
   $(document).on('click', '.comment-btn', function (event) {
     event.preventDefault();
     var newsID = $(this).data('id');
+    getComments(newsID);
+    
     $('#prev-comments').empty();
     $('#new-comment').val('');
 
@@ -30,9 +36,14 @@ $(document).ready(function () {
         var commentsArr = data.comments;
         var html = '';
         for (var i = 0; i < commentsArr.length; i += 1) {
-          html = '<div>' +
-        '<p>' + commentsArr[i].body + '</p>' +
-        '</div>';
+          html = '<div class="row">' +
+            '<div class="col-md-8">' +
+            commentsArr[i].body +
+            '</div>' +
+            '<div class="col-md-4">' +
+            '<button class="delete-comment" data-id="' + commentsArr[i]._id + '">X</button>' +
+            '</div>' +
+            '</div>';
           $('#prev-comments').append(html);
         }
       }
@@ -50,5 +61,18 @@ $(document).ready(function () {
     newComment.body = $('#new-comment').val();
 
     $.post('/api/comments/' + newsID, newComment);
+  });
+
+  $(document).on('click', '.delete-comment', function (event) {
+    event.preventDefault();
+    var thisID = $(this).data('id');
+
+    $.ajax({
+      url: '/api/comments/' + thisID,
+      type: 'DELETE',
+      success: function (data) {
+        console.log(data);
+      }
+    });
   });
 });
