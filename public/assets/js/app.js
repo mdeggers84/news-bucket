@@ -5,12 +5,16 @@ $(document).ready(function () {
 
   $(document).on('click', '.save-btn', function (event) {
     event.preventDefault();
-    var newsID = $(this).data('id');
+    var doc = {};
 
-    $.get('/api/news/' + newsID).done(function (data) {
-      console.log('Saved Article', data);
-      $.post('/api/saved/' + newsID, data);
-    });
+    doc.title = $(this).parent().prev()
+      .find('[class=title]')
+      .text();
+    doc.link = $(this).parent().prev()
+      .find('a')
+      .text();
+
+    $.post('/api/saved/', doc);
   });
 
   $(document).on('click', '.comment-btn', function (event) {
@@ -22,10 +26,10 @@ $(document).ready(function () {
     });
   });
 
-  $('#scrape-btn').on('click', function () {
-    $.get('/api/scrape', function (data) {
-      console.log('Scrape Complete', data);
-      window.location.replace('/');
-    });
-  });
+  // $('#scrape-btn').on('click', function () {
+  //   $.get('/api/scrape', function (data) {
+  //     console.log('Scrape Complete', data);
+  //     window.location.replace('/');
+  //   });
+  // });
 });

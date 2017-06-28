@@ -3,9 +3,16 @@
 </div>
 <div id="news">
   {{#each docArr}}
-  <ul>
-    <li>{{this.title}}</li>
-    <li><a href="{{this.link}}">{{this.link}}</a></li>
-  </ul>
-  <button data-id="{{this._id}}" class="save-btn">Save</button> {{/each}}
+  <div class="row">
+    <div class="col-md-10">
+      <ul>
+        <li class="title">{{this.title}}</li>
+        <li class="link"><a href="{{this.link}}">{{this.link}}</a></li>
+      </ul>
+    </div>
+    <div class="col-md-2">
+      <button class="save-btn">Save</button>
+    </div>
+  </div>
+  {{/each}}
 </div>

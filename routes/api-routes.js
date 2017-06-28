@@ -58,7 +58,7 @@ module.exports = function (app) {
     });
   });
 
-  app.post('/api/saved/:id', function (req, res) {
+  app.post('/api/saved/', function (req, res) {
     var newSavedNews = new SavedNews(req.body);
 
     newSavedNews.save(function (error, doc) {
