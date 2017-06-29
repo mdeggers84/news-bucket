@@ -1,16 +1,21 @@
 <div id="news">
   {{#each doc}}
-  <div class="row">
-    <div class="col-md-10">
-      <ul>
-        <li>{{this.title}}</li>
-        <li><a href="{{this.link}}">{{this.link}}</a></li>
-      </ul>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{this.title}}</h3>
     </div>
-    <div class="col-md-2">
-      <!-- Button trigger modal -->
-      <button type="button" class="btn comment-btn" data-toggle="modal" data-target="#commentModal" data-id="{{this._id}}">Comment</button>
-      <button class="delete-news" data-id="{{this._id}}">X</button>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-10">
+          <a href="{{this.link}}">{{this.link}}</a>
+        </div>
+        <div class="col-sm-1">
+          <button type="button" class="btn btn-info comment-btn" data-toggle="modal" data-target="#commentModal" data-id="{{this._id}}">Comment</button>
+        </div>
+        <div class="col-sm-1">
+          <button class="btn btn-danger delete-news" data-id="{{this._id}}">Delete</button>
+        </div>
+      </div>
     </div>
   </div>
   {{/each}}

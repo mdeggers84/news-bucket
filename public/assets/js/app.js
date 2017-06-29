@@ -1,4 +1,18 @@
 $(document).ready(function () {
+  function setActiveLink() {
+    var page = window.location.pathname;
+    switch (page) {
+      case '/':
+        $('#nav-home').addClass('active');
+        break;
+      case '/saved':
+        $('#nav-saved').addClass('active');
+        break;
+      default:
+        $('#navbar a').removeClass();
+    }
+  }
+
   $('#commentModal').on('shown.bs.modal', function () {
     $('#new-comment').focus();
   });
@@ -7,8 +21,9 @@ $(document).ready(function () {
     event.preventDefault();
     var doc = {};
 
-    doc.title = $(this).parent().prev()
-      .find('[class=title]')
+    doc.title = $(this).parent().parent().parent()
+      .prev()
+      .find('[class=panel-title]')
       .text();
     doc.link = $(this).parent().prev()
       .find('a')
@@ -20,7 +35,9 @@ $(document).ready(function () {
   $(document).on('click', '.delete-news', function (event) {
     var newsID = $(this).data('id');
 
-    $(this).parent().parent().hide();
+    $(this).parent().parent().parent()
+      .parent()
+      .hide();
 
     $.ajax({
       url: '/api/news/' + newsID,
@@ -86,4 +103,6 @@ $(document).ready(function () {
       }
     });
   });
+
+  setActiveLink();
 });
