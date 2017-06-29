@@ -97,7 +97,8 @@ module.exports = function (app) {
       if (error) {
         console.log(error);
       } else {
-        SavedNews.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: doc._id } }, { new: true })
+        SavedNews.findOneAndUpdate({ _id: req.params.id }, {
+          $push: { comments: doc._id } }, { new: true })
         .exec(function (err, newdoc) {
           if (err) {
             console.log(err);

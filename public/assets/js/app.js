@@ -28,7 +28,6 @@ $(document).ready(function () {
     event.preventDefault();
     var doc = {};
 
-    doc._id = $(this).data('id');
     doc.title = $(this).parent().parent().parent()
       .prev()
       .find('[class=panel-title]')
@@ -59,9 +58,15 @@ $(document).ready(function () {
   $(document).on('click', '.comment-btn', function (event) {
     event.preventDefault();
     var newsID = $(this).data('id');
+    var title = $(this).parent().parent().parent()
+      .prev()
+      .find('[class=panel-title]')
+      .text();
 
     $('#prev-comments').empty();
     $('#new-comment').val('');
+    $('#commentTitle').text(title);
+    $('#save-comment').data('id', newsID);
 
     $.get('/api/savednews/' + newsID).done(function (data) {
       console.log(data);
@@ -81,20 +86,19 @@ $(document).ready(function () {
           $('#prev-comments').append(html);
         }
       }
-
-      $('#commentTitle').text(data.title);
-      $('#save-comment').attr('data-id', newsID);
     });
+    console.log($('#save-comment').data('id'));
   });
 
   $(document).on('click', '#save-comment', function (event) {
     event.preventDefault();
     var newComment = {};
-    var newsID = $(this).data('id');
+    var thisID = $('#save-comment').data('id');
+    console.log('current: ' + $('#save-comment').data('id'), 'var: ' + thisID);
 
     newComment.body = $('#new-comment').val();
 
-    $.post('/api/comments/' + newsID, newComment);
+    $.post('/api/comments/' + thisID, newComment);
   });
 
   $(document).on('click', '.delete-comment', function (event) {
