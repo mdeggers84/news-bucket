@@ -12,7 +12,25 @@
 </head>
 
 <body>
-  {{{ body }}}
+  <div class="navbar navbar-default navbar-fixed-top" id="navbar">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">News Bucket</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/saved">Saved Articles</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="text-center">News Bucket</h1>
+    </div>
+  </div>
+  <div class="container" id="main-content">
+    {{{ body }}}
+  </div>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous"></script>
   <!-- Latest compiled and minified JavaScript -->
