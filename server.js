@@ -38,6 +38,6 @@ db.once('open', function () {
 require('./routes/api-routes')(app);
 require('./routes/html-routes')(app);
 
-app.listen(3000, function () {
-  console.log('App running on port 3000!');
+app.listen(PORT, function () {
+  console.log('App running on port: ' + PORT);
 });
