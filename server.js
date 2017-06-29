@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-mongoose.connect(uristring);
+mongoose.connect('mongodb://heroku_5bpg80m9:c2gb5s3vm832f8c6mdr6uj3id3@ds159220.mlab.com:59220/heroku_5bpg80m9');
 db = mongoose.connection;
 
 db.on('error', function (error) {
