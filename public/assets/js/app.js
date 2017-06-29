@@ -7,6 +7,7 @@ $(document).ready(function () {
         break;
       case '/saved':
         $('#nav-saved').addClass('active');
+        $('#scrape').hide();
         break;
       default:
         $('#navbar a').removeClass();
@@ -17,10 +18,17 @@ $(document).ready(function () {
     $('#new-comment').focus();
   });
 
-  $(document).on('click', '.save-btn', function (event) {
+  $('#scrape-btn').on('click', function () {
+    $.get('/api/scrape').done(function () {
+      location.reload();
+    });
+  });
+
+  $(document).on('click', '.save-news', function (event) {
     event.preventDefault();
     var doc = {};
 
+    doc._id = $(this).data('id');
     doc.title = $(this).parent().parent().parent()
       .prev()
       .find('[class=panel-title]')
@@ -29,7 +37,7 @@ $(document).ready(function () {
       .find('a')
       .text();
 
-    $.post('/api/news/', doc);
+    $.post('/api/savednews/', doc);
   });
 
   $(document).on('click', '.delete-news', function (event) {
@@ -40,7 +48,7 @@ $(document).ready(function () {
       .hide();
 
     $.ajax({
-      url: '/api/news/' + newsID,
+      url: '/api/savednews/' + newsID,
       type: 'DELETE',
       success: function (data) {
         console.log(data);
@@ -55,7 +63,7 @@ $(document).ready(function () {
     $('#prev-comments').empty();
     $('#new-comment').val('');
 
-    $.get('/api/news/' + newsID).done(function (data) {
+    $.get('/api/savednews/' + newsID).done(function (data) {
       console.log(data);
 
       if (typeof data.comments !== 'undefined') {

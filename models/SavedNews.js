@@ -2,16 +2,19 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var savedNewsSchema = new Schema({
-  title: {
+  _id: {
     type: String,
     require: true,
     unique: true
   },
+  title: {
+    type: String,
+    require: true
+  },
   body: String,
   link: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   comments: [{
     type: Schema.Types.ObjectId,

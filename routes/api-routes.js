@@ -1,31 +1,38 @@
 var request = require('request');
 var cheerio = require('cheerio');
+
 var News = require('../models/News');
 var Comments = require('../models/Comments');
+var SavedNews = require('../models/SavedNews');
 
 module.exports = function (app) {
-  // app.get('/api/scrape', function (req, res) {
-  //   request('https://www.polygon.com/', function (error, response, html) {
-  //     var $ = cheerio.load(html);
-  //     var result = {};
+  app.get('/api/scrape', function (req, res) {
+    request('https://www.polygon.com/', function (error, response, html) {
+      var $ = cheerio.load(html);
+      var hbsObject = {
+        doc: []
+      };
 
-  //     $('div.c-compact-river__entry ').each(function (i, element) {
-  //       result.title = $(this).find('h2').find('a').text();
-  //       result.link = $(this).find('h2').find('a').attr('href');
+      $('div.c-compact-river__entry ').each(function (i, element) {
+        var doc = {};
+        var entry;
+        doc.title = $(this).find('h2').find('a').text();
+        doc.link = $(this).find('h2').find('a').attr('href');
 
-  //       var entry = new News(result);
+        hbsObject.doc.push(doc);
+        entry = new News(doc);
 
-  //       entry.save(function (err, doc) {
-  //         if (err) {
-  //           console.log(err);
-  //         } else {
-  //           console.log(doc);
-  //         }
-  //       });
-  //     });
-  //   });
-  //   res.send('Scrape Complete!');
-  // });
+        entry.save(function (err, newdoc) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(newdoc);
+          }
+        });
+      });
+      res.render('index', hbsObject);
+    });
+  });
 
   app.get('/api/news', function (req, res) {
     News.find({}, function (error, doc) {
@@ -37,8 +44,18 @@ module.exports = function (app) {
     });
   });
 
-  app.get('/api/news/:id', function (req, res) {
-    News.findOne({ _id: req.params.id })
+  app.get('/api/savednews', function (req, res) {
+    SavedNews.find({}, function (error, doc) {
+      if (error) {
+        console.log(error);
+      } else {
+        res.json(doc);
+      }
+    });
+  });
+
+  app.get('/api/savednews/:id', function (req, res) {
+    SavedNews.findOne({ _id: req.params.id })
       .populate('comments')
       .exec(function (error, doc) {
         if (error) {
@@ -50,7 +67,7 @@ module.exports = function (app) {
   });
 
   app.get('/api/comments', function (req, res) {
-    News.find({})
+    SavedNews.find({})
       .populate('comments')
       .exec(function (error, doc) {
         if (error) {
@@ -61,10 +78,10 @@ module.exports = function (app) {
       });
   });
 
-  app.post('/api/news/', function (req, res) {
-    var newNews = new News(req.body);
+  app.post('/api/savednews/', function (req, res) {
+    var newSavedNews = new SavedNews(req.body);
 
-    newNews.save(function (error, doc) {
+    newSavedNews.save(function (error, doc) {
       if (error) {
         console.log(error);
       } else {
@@ -80,7 +97,7 @@ module.exports = function (app) {
       if (error) {
         console.log(error);
       } else {
-        News.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: doc._id } }, { new: true })
+        SavedNews.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: doc._id } }, { new: true })
         .exec(function (err, newdoc) {
           if (err) {
             console.log(err);
@@ -92,8 +109,8 @@ module.exports = function (app) {
     });
   });
 
-  app.delete('/api/news/:id', function (req, res) {
-    News.findByIdAndRemove({ _id: req.params.id }, function (error) {
+  app.delete('/api/savednews/:id', function (req, res) {
+    SavedNews.findByIdAndRemove({ _id: req.params.id }, function (error) {
       if (error) {
         console.log(error);
       } else {

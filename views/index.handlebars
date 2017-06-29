@@ -1,5 +1,5 @@
 <div id="news">
-  {{#each docArr}}
+  {{#each doc}}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">{{this.title}}</h3>
@@ -10,7 +10,7 @@
           <a href="{{this.link}}" target="_blank">{{this.link}}</a>
         </div>
         <div class="col-sm-1 col-sm-offset-1">
-          <button class="btn btn-primary save-btn">Save</button>
+          <button class="btn btn-primary save-news" data-id="{{this.id}}">Save</button>
         </div>
       </div>
     </div>
