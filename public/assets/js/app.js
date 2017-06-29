@@ -36,7 +36,7 @@ $(document).ready(function () {
   });
 
   $('#scrape-btn').on('click', function () {
-    $.get('/api/scrape').done(function () {
+    $.get('/scrape').done(function () {
       location.reload();
     });
   });

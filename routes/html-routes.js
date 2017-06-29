@@ -4,7 +4,7 @@ var SavedNews = require('../models/SavedNews');
 
 module.exports = function (app) {
   app.get('/', function (req, res) {
-    News.find().sort({ _id: -1 }).exec(function (error, doc) {
+    News.find().sort({ _id: -1 }).limit(10).exec(function (error, doc) {
       if (error) {
         console.log(error);
       } else {

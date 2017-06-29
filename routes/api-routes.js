@@ -6,14 +6,14 @@ var Comments = require('../models/Comments');
 var SavedNews = require('../models/SavedNews');
 
 module.exports = function (app) {
-  app.get('/api/scrape', function (req, res) {
+  app.get('/scrape', function (req, res) {
     request('https://www.polygon.com/', function (error, response, html) {
       var $ = cheerio.load(html);
       var hbsObject = {
         doc: []
       };
 
-      $('div.c-compact-river__entry ').each(function (i, element) {
+      $('div.c-compact-river__entry').each(function (i, element) {
         var doc = {};
         var entry;
         doc.title = $(this).find('h2').find('a').text();
@@ -30,7 +30,24 @@ module.exports = function (app) {
           }
         });
       });
-      res.render('index', hbsObject);
+      // res.render('index', hbsObject);
+      res.send('scrape complete');
+    });
+  });
+
+  app.get('/api/scrape', function (req, res) {
+    request('https://www.polygon.com/', function (error, response, html) {
+      var $ = cheerio.load(html);
+      var result = [];
+
+      $('div.c-compact-river__entry').each(function (i, element) {
+        var doc = {};
+        doc.title = $(this).find('h2').find('a').text();
+        doc.link = $(this).find('h2').find('a').attr('href');
+
+        result.push(doc);
+      });
+      res.send(result);
     });
   });
 
