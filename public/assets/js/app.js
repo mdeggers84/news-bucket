@@ -14,6 +14,23 @@ $(document).ready(function () {
     }
   }
 
+  function checkArticles() {
+    var page = window.location.pathname;
+    var html;
+
+    console.log(page, $('#news').text().trim());
+
+    if ($('#news').text().trim() === '') {
+      if (page === '/') {
+        html = '<h1 class="text-center">You haven\'t scraped any articles yet!</h1>';
+        $('#news').html(html);
+      } else if (page === '/saved') {
+        html = '<h1 class="text-center">You haven\'t saved any articles yet!</h1>';
+        $('#news').html(html);
+      }
+    }
+  }
+
   $('#commentModal').on('shown.bs.modal', function () {
     $('#new-comment').focus();
   });
@@ -117,4 +134,5 @@ $(document).ready(function () {
   });
 
   setActiveLink();
+  checkArticles();
 });
