@@ -92,6 +92,16 @@ module.exports = function (app) {
     });
   });
 
+  app.delete('/api/news/:id', function (req, res) {
+    News.findByIdAndRemove({ _id: req.params.id }, function (error) {
+      if (error) {
+        console.log(error);
+      } else {
+        res.send('article deleted');
+      }
+    });
+  });
+
   app.delete('/api/comments/:id', function (req, res) {
     Comments.findByIdAndRemove({ _id: req.params.id }, function (error) {
       if (error) {

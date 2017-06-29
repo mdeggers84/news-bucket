@@ -1,3 +1,7 @@
 textarea {
   width: 100%;
 }
+
+.prev-comments {
+  padding: 5px;
+}

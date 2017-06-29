@@ -3,13 +3,20 @@
 </div>
 <div id="news">
   {{#each doc}}
-  <ul>
-    <li>{{this.title}}</li>
-    <li><a href="{{this.link}}">{{this.link}}</a></li>
-  </ul>
-  <!-- Button trigger modal -->
-  <button type="button" class="btn comment-btn" data-toggle="modal" data-target="#commentModal" data-id="{{this._id}}">Comment</button>
-  <button class="delete-btn" data-id="{{this._id}}">X</button>{{/each}}
+  <div class="row">
+    <div class="col-md-10">
+      <ul>
+        <li>{{this.title}}</li>
+        <li><a href="{{this.link}}">{{this.link}}</a></li>
+      </ul>
+    </div>
+    <div class="col-md-2">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn comment-btn" data-toggle="modal" data-target="#commentModal" data-id="{{this._id}}">Comment</button>
+      <button class="delete-news" data-id="{{this._id}}">X</button>
+    </div>
+  </div>
+  {{/each}}
 </div>
 <!-- Modal -->
 <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="comments">
@@ -19,12 +26,12 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="commentTitle"></h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body form-group">
         <div id="prev-comments">
           {{!--previous comments inserted here--}}
         </div>
         <div>
-          <textarea id="new-comment" rows="5"></textarea>
+          <textarea id="new-comment" rows="2"></textarea>
         </div>
       </div>
       <div class="modal-footer">

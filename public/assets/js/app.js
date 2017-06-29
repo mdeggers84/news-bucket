@@ -17,15 +17,24 @@ $(document).ready(function () {
     $.post('/api/news/', doc);
   });
 
-  $(document).on('click', '.delete-btn', function (event) {
+  $(document).on('click', '.delete-news', function (event) {
+    var newsID = $(this).data('id');
 
+    $(this).parent().parent().hide();
+
+    $.ajax({
+      url: '/api/news/' + newsID,
+      type: 'DELETE',
+      success: function (data) {
+        console.log(data);
+      }
+    });
   });
 
   $(document).on('click', '.comment-btn', function (event) {
     event.preventDefault();
     var newsID = $(this).data('id');
-    getComments(newsID);
-    
+
     $('#prev-comments').empty();
     $('#new-comment').val('');
 
@@ -36,12 +45,12 @@ $(document).ready(function () {
         var commentsArr = data.comments;
         var html = '';
         for (var i = 0; i < commentsArr.length; i += 1) {
-          html = '<div class="row">' +
-            '<div class="col-md-8">' +
+          html = '<div class="row prev-comments">' +
+          '<div class="col-md-10">' +
             commentsArr[i].body +
             '</div>' +
-            '<div class="col-md-4">' +
-            '<button class="delete-comment" data-id="' + commentsArr[i]._id + '">X</button>' +
+            '<div class="col-md-2 text-right">' +
+            '<button class="delete-comment btn btn-danger" data-id="' + commentsArr[i]._id + '">X</button>' +
             '</div>' +
             '</div>';
           $('#prev-comments').append(html);
@@ -66,6 +75,8 @@ $(document).ready(function () {
   $(document).on('click', '.delete-comment', function (event) {
     event.preventDefault();
     var thisID = $(this).data('id');
+
+    $(this).parent().parent().hide();
 
     $.ajax({
       url: '/api/comments/' + thisID,
