@@ -20,7 +20,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-mongoose.connect('mongodb://localhost/newsbucket');
+// mongoose.connect('mongodb://localhost/newsbucket');
+mongoose.connect('mongodb://heroku_cdlj4pb3:vgcoaehiplkadh398br6nlml0f@ds135522.mlab.com:35522/heroku_cdlj4pb3');
 db = mongoose.connection;
 
 db.on('error', function (error) {
