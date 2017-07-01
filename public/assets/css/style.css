@@ -1,5 +1,9 @@
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Press Start 2P', cursive;
+}
+
+a {
+  font-size: .75em;
 }
 
 textarea {
