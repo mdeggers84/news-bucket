@@ -2,12 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var commentSchema = new Schema({
-  title: {
-    type: String
-  },
   body: {
     type: String,
-    trim: true
+    trim: true,
+    required: true
   }
 });
 
