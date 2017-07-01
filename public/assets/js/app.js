@@ -7,7 +7,6 @@ $(document).ready(function () {
         break;
       case '/saved':
         $('#nav-saved').addClass('active');
-        $('#scrape').hide();
         break;
       default:
         $('#navbar a').removeClass();
@@ -21,10 +20,7 @@ $(document).ready(function () {
     console.log(page, $('#news').text().trim());
 
     if ($('#news').text().trim() === '') {
-      if (page === '/') {
-        html = '<h1 class="text-center">You haven\'t scraped any articles yet!</h1>';
-        $('#news').html(html);
-      } else if (page === '/saved') {
+      if (page === '/saved') {
         html = '<h1 class="text-center">You haven\'t saved any articles yet!</h1>';
         $('#news').html(html);
       }
@@ -33,12 +29,6 @@ $(document).ready(function () {
 
   $('#commentModal').on('shown.bs.modal', function () {
     $('#new-comment').focus();
-  });
-
-  $('#scrape-btn').on('click', function () {
-    $.get('/scrape').done(function () {
-      location.reload();
-    });
   });
 
   $(document).on('click', '.save-news', function (event) {
