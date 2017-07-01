@@ -58,11 +58,12 @@ module.exports = function (app) {
   app.post('/api/savednews/', function (req, res) {
     var newSavedNews = new SavedNews(req.body);
 
-    newSavedNews.save(function (error, doc) {
+    newSavedNews.save(function (error) {
       if (error) {
         console.log(error);
+        res.send(false);
       } else {
-        res.json(doc);
+        res.send(true);
       }
     });
   });

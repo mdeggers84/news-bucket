@@ -4,11 +4,13 @@ var Schema = mongoose.Schema;
 var savedNewsSchema = new Schema({
   title: {
     type: String,
-    require: true
+    require: true,
+    unique: true
   },
   link: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   image: {
     type: String

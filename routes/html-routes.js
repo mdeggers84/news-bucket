@@ -15,9 +15,9 @@ module.exports = function (app) {
       $('div.c-compact-river__entry').each(function (i, element) {
         var doc = {};
 
-        doc.title = $(this).find('h2').find('a').text();
-        doc.link = $(this).find('h2').find('a').attr('href');
-        doc.image = $(this).find('noscript').text();
+        doc.title = $(element).find('h2').find('a').text();
+        doc.link = $(element).find('h2').find('a').attr('href');
+        doc.image = $(element).find('noscript').text();
 
         doc.image = doc.image.slice(10, -9);
 

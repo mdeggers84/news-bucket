@@ -13,10 +13,36 @@
           <a href="{{this.link}}" target="_blank">{{this.link}}</a>
         </div>
         <div class="col-sm-1 col-sm-offset-1">
-          <button class="btn btn-primary save-news" data-id="{{this.id}}">Save</button>
+          <button class="btn btn-primary save-news" data-toggle="modal" data-target="#saveModal" data-id="{{this.id}}">Save</button>
         </div>
       </div>
     </div>
   </div>
   {{/each}}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="save">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="row">
+          <div class="col-sm-4">
+            <img class="img-responsive" id="modal-img" src="" alt="image" />
+          </div>
+          <div class="col-sm-8">
+            <h4 class="modal-title" id="modal-title"></h4>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-body form-group">
+        <h4 class="text-center" id="modal-msg"></h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -17,8 +17,6 @@ $(document).ready(function () {
     var page = window.location.pathname;
     var html;
 
-    console.log(page, $('#news').text().trim());
-
     if ($('#news').text().trim() === '') {
       if (page === '/saved') {
         html = '<h1 class="text-center">You haven\'t saved any articles yet!</h1>';
@@ -33,6 +31,9 @@ $(document).ready(function () {
 
   $(document).on('click', '.save-news', function (event) {
     event.preventDefault();
+    $('#modal-title').text('');
+    $('#modal-msg').empty();
+    $('#modal-img').attr('src', '');
     var doc = {};
 
     doc.title = $(this).parent().parent().parent()
@@ -46,7 +47,18 @@ $(document).ready(function () {
       .find('img')
       .attr('src');
 
-    $.post('/api/savednews/', doc);
+    $('#modal-img').attr('src', doc.image);
+    $('#modal-title').text(doc.title);
+
+    $.post('/api/savednews/', doc).done(function (saved) {
+      if (saved) {
+        $('#modal-msg').text('Article saved!');
+        console.log('Article saved.');
+      } else {
+        $('#modal-msg').text('Article not saved!');
+        console.log('Article not saved');
+      }
+    });
   });
 
   $(document).on('click', '.delete-news', function (event) {
@@ -59,8 +71,8 @@ $(document).ready(function () {
     $.ajax({
       url: '/api/savednews/' + newsID,
       type: 'DELETE',
-      success: function (data) {
-        console.log(data);
+      success: function (result) {
+        console.log(result);
       }
     });
   });
@@ -79,8 +91,6 @@ $(document).ready(function () {
     $('#save-comment').data('id', newsID);
 
     $.get('/api/savednews/' + newsID).done(function (data) {
-      console.log(data);
-
       if (typeof data.comments !== 'undefined') {
         var commentsArr = data.comments;
         var html = '';
@@ -97,14 +107,12 @@ $(document).ready(function () {
         }
       }
     });
-    console.log($('#save-comment').data('id'));
   });
 
   $(document).on('click', '#save-comment', function (event) {
     event.preventDefault();
     var newComment = {};
     var thisID = $('#save-comment').data('id');
-    console.log('current: ' + $('#save-comment').data('id'), 'var: ' + thisID);
 
     newComment.body = $('#new-comment').val();
 
@@ -120,8 +128,8 @@ $(document).ready(function () {
     $.ajax({
       url: '/api/comments/' + thisID,
       type: 'DELETE',
-      success: function (data) {
-        console.log(data);
+      success: function (result) {
+        console.log(result);
       }
     });
   });
