@@ -6,10 +6,12 @@ var savedNewsSchema = new Schema({
     type: String,
     require: true
   },
-  body: String,
   link: {
     type: String,
     required: true
+  },
+  image: {
+    type: String
   },
   comments: [{
     type: Schema.Types.ObjectId,

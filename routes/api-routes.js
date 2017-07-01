@@ -1,7 +1,6 @@
 var request = require('request');
 var cheerio = require('cheerio');
 
-var News = require('../models/News');
 var Comments = require('../models/Comments');
 var SavedNews = require('../models/SavedNews');
 
@@ -19,16 +18,6 @@ module.exports = function (app) {
         result.push(doc);
       });
       res.send(result);
-    });
-  });
-
-  app.get('/api/news', function (req, res) {
-    News.find({}, function (error, doc) {
-      if (error) {
-        console.log(error);
-      } else {
-        res.json(doc);
-      }
     });
   });
 

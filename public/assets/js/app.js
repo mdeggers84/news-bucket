@@ -42,6 +42,9 @@ $(document).ready(function () {
     doc.link = $(this).parent().prev()
       .find('a')
       .text();
+    doc.image = $(this).parent().prev().prev()
+      .find('img')
+      .attr('src');
 
     $.post('/api/savednews/', doc);
   });

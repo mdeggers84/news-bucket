@@ -1,8 +1,7 @@
 
 var request = require('request');
 var cheerio = require('cheerio');
-var News = require('../models/News');
-var Comments = require('../models/Comments');
+
 var SavedNews = require('../models/SavedNews');
 
 module.exports = function (app) {
@@ -18,6 +17,9 @@ module.exports = function (app) {
 
         doc.title = $(this).find('h2').find('a').text();
         doc.link = $(this).find('h2').find('a').attr('href');
+        doc.image = $(this).find('noscript').text();
+
+        doc.image = doc.image.slice(10, -9);
 
         hbsObject.doc.push(doc);
       });
@@ -26,7 +28,7 @@ module.exports = function (app) {
   });
 
   app.get('/saved', function (req, res) {
-    SavedNews.find({}).sort({ _id: 1 }).exec(function (error, doc) {
+    SavedNews.find({}).sort({ _id: -1 }).exec(function (error, doc) {
       if (error) {
         console.log(error);
       } else {
