@@ -5,3 +5,13 @@ textarea {
 .prev-comments {
   padding: 5px;
 }
+
+.navbar-brand {
+  padding: 0px;
+}
+
+#bucket-img {
+  width: auto !important;
+  height: 50px !important;
+  padding: 0;
+}
