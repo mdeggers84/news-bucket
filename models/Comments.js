@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+// comment schema
 var commentSchema = new Schema({
   body: {
     type: String,

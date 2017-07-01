@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+// saved articles schema
 var savedNewsSchema = new Schema({
   title: {
     type: String,

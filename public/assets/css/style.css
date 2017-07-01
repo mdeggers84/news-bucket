@@ -14,12 +14,11 @@ textarea {
   padding: 5px;
 }
 
-/*.navbar-brand {
-  padding: 0px;
-}*/
+.navbar-brand {
+  padding: 5px;
+}
 
 #bucket-img {
-  width: auto !important;
-  height: 50px !important;
-  padding: 0;
+  height: 100%;
+  width: auto;
 }
