@@ -6,16 +6,16 @@
     </div>
     <div class="panel-body">
       <div class="row">
-        <div class="col-sm-2">
+        <div class="col-md-2">
           <img class="img-responsive" src="{{this.image}}" alt="image" />
         </div>
-        <div class="col-sm-6">
+        <div class="col-md-6 col-sm-10">
           <a href="{{this.link}}" target="_blank">{{this.link}}</a>
         </div>
-        <div class="col-sm-2 text-right">
+        <div class="col-md-2 col-xs-6 text-right">
           <button type="button" class="btn btn-info comment-btn" data-toggle="modal" data-target="#commentModal" data-id="{{this._id}}">Comment</button>
         </div>
-        <div class="col-sm-2">
+        <div class="col-md-2">
           <button class="btn btn-danger delete-news" data-id="{{this._id}}">Delete</button>
         </div>
       </div>
