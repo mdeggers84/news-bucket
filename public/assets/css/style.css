@@ -23,6 +23,12 @@ textarea {
   width: auto;
 }
 
+#sloth-img {
+  display: none;
+  height: 100%;
+  width: auto;
+}
+
 #navbar {
   margin-bottom: 0px;
 }

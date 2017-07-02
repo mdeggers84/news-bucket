@@ -134,6 +134,15 @@ $(document).ready(function () {
     });
   });
 
+  $('.navbar-brand').mouseover(function () {
+    $('#bucket-img').hide();
+    $('#sloth-img').show();
+  })
+  .mouseout(function () {
+    $('#sloth-img').hide();
+    $('#bucket-img').show();
+  });
+
   setActiveLink();
   checkArticles();
 });
