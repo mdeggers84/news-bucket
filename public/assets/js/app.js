@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  // checks which page is active and highlights that navbar link
   function setActiveLink() {
     var page = window.location.pathname;
     switch (page) {
@@ -13,6 +14,7 @@ $(document).ready(function () {
     }
   }
 
+  // checks whether any articles saved, displays message to user if not
   function checkArticles() {
     var page = window.location.pathname;
     var html;
@@ -25,10 +27,12 @@ $(document).ready(function () {
     }
   }
 
+  // sets focus to textarea when comment modal is brought into focus
   $('#commentModal').on('shown.bs.modal', function () {
     $('#new-comment').focus();
   });
 
+  // populates modal with current article information when saving
   $(document).on('click', '.save-news', function (event) {
     event.preventDefault();
     $('#modal-title').text('');
@@ -50,6 +54,7 @@ $(document).ready(function () {
     $('#modal-img').attr('src', doc.image);
     $('#modal-title').text(doc.title);
 
+    // attempts to save article, notifies user if successful/unsuccessful
     $.post('/api/savednews/', doc).done(function (saved) {
       if (saved) {
         $('#modal-msg').text('Article saved!');
@@ -61,6 +66,7 @@ $(document).ready(function () {
     });
   });
 
+  // deletes saved article
   $(document).on('click', '.delete-news', function (event) {
     var newsID = $(this).data('id');
 
@@ -77,6 +83,7 @@ $(document).ready(function () {
     });
   });
 
+  // displays modal for commenting on articles
   $(document).on('click', '.comment-btn', function (event) {
     event.preventDefault();
     var newsID = $(this).data('id');
@@ -85,11 +92,14 @@ $(document).ready(function () {
       .find('[class=panel-title]')
       .text();
 
+    // empties previous information and displays new title
+    // also updates button id
     $('#prev-comments').empty();
     $('#new-comment').val('');
     $('#commentTitle').text(title);
     $('#save-comment').data('id', newsID);
 
+    // populates modal with previous comments, if any exist
     $.get('/api/savednews/' + newsID).done(function (data) {
       if (typeof data.comments !== 'undefined') {
         var commentsArr = data.comments;
@@ -109,6 +119,7 @@ $(document).ready(function () {
     });
   });
 
+  // saves comment to database (validation is taken care of my mongoose)
   $(document).on('click', '#save-comment', function (event) {
     event.preventDefault();
     var newComment = {};
@@ -119,6 +130,7 @@ $(document).ready(function () {
     $.post('/api/comments/' + thisID, newComment);
   });
 
+  // deletes comment and hides it from user view
   $(document).on('click', '.delete-comment', function (event) {
     event.preventDefault();
     var thisID = $(this).data('id');
@@ -134,6 +146,7 @@ $(document).ready(function () {
     });
   });
 
+  // just some fun :)
   $('.navbar-brand').mouseover(function () {
     $('#bucket-img').hide();
     $('#sloth-img').show();

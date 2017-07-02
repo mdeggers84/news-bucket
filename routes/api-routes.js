@@ -5,6 +5,7 @@ var Comments = require('../models/Comments');
 var SavedNews = require('../models/SavedNews');
 
 module.exports = function (app) {
+  // displays scraped articles
   app.get('/api/scrape', function (req, res) {
     request('https://www.polygon.com/', function (error, response, html) {
       var $ = cheerio.load(html);
@@ -21,6 +22,7 @@ module.exports = function (app) {
     });
   });
 
+  // displays all saved news
   app.get('/api/savednews', function (req, res) {
     SavedNews.find({}, function (error, doc) {
       if (error) {
@@ -31,6 +33,7 @@ module.exports = function (app) {
     });
   });
 
+  // gets article by _id and displays with comments
   app.get('/api/savednews/:id', function (req, res) {
     SavedNews.findOne({ _id: req.params.id })
       .populate('comments')
@@ -43,6 +46,7 @@ module.exports = function (app) {
       });
   });
 
+  // displays all articles with comments
   app.get('/api/comments', function (req, res) {
     SavedNews.find({})
       .populate('comments')
@@ -55,6 +59,7 @@ module.exports = function (app) {
       });
   });
 
+  // saves new article to database
   app.post('/api/savednews/', function (req, res) {
     var newSavedNews = new SavedNews(req.body);
 
@@ -68,6 +73,7 @@ module.exports = function (app) {
     });
   });
 
+  // saves comment and links to appropriate article
   app.post('/api/comments/:id', function (req, res) {
     var newComment = new Comments(req.body);
 
@@ -88,6 +94,7 @@ module.exports = function (app) {
     });
   });
 
+  // deletes saved article
   app.delete('/api/savednews/:id', function (req, res) {
     SavedNews.findByIdAndRemove({ _id: req.params.id }, function (error) {
       if (error) {
@@ -98,6 +105,7 @@ module.exports = function (app) {
     });
   });
 
+  // deletes comment
   app.delete('/api/comments/:id', function (req, res) {
     Comments.findByIdAndRemove({ _id: req.params.id }, function (error) {
       if (error) {
